@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 using System.IO;
 using System.Reflection;
+
+using System.Drawing;
 //
 
 namespace test_file_esterni
