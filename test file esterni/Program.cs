@@ -19,7 +19,7 @@ namespace test_file_esterni
 {
 	internal class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
 			string path = "";
 			FStreamWriter1(path);

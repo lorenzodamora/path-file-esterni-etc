@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test file esterni", "test file esterni\test file esterni.csproj", "{566B4157-C2D1-44E8-9D7A-4D7A47DAB723}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1 test file esterni", "test file esterni\1 test file esterni.csproj", "{566B4157-C2D1-44E8-9D7A-4D7A47DAB723}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test2 copia", "test2 copia\test2 copia.csproj", "{8B8491F7-1129-4A80-BACF-7E1676CD0EA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2 test2 copia", "test2 copia\2 test2 copia.csproj", "{8B8491F7-1129-4A80-BACF-7E1676CD0EA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test3 creare cartelle", "test3 creare cartelle\test3 creare cartelle.csproj", "{47726BCA-FFDC-4CF5-938E-E9FB89B7FE23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3 test3 creare cartelle", "test3 creare cartelle\3 test3 creare cartelle.csproj", "{47726BCA-FFDC-4CF5-938E-E9FB89B7FE23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test4 infodriver", "test4 driver\test4 infodriver.csproj", "{A0B10D43-539F-4045-A529-EC1229723859}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4test4 infodriver", "test4 driver\4test4 infodriver.csproj", "{A0B10D43-539F-4045-A529-EC1229723859}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5 copiare, spostare ed eliminare file", "5 copiare, spostare ed eliminare file\5 copiare, spostare ed eliminare file.csproj", "{A8F9612E-235D-4E3C-AB85-BE5815E01F24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6 contare file in una cartella", "6 contare file in una cartella\6 contare file in una cartella.csproj", "{494D1418-E350-4CB5-BCF7-1B98CEC10BE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A8F9612E-235D-4E3C-AB85-BE5815E01F24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8F9612E-235D-4E3C-AB85-BE5815E01F24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8F9612E-235D-4E3C-AB85-BE5815E01F24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{494D1418-E350-4CB5-BCF7-1B98CEC10BE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{494D1418-E350-4CB5-BCF7-1B98CEC10BE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{494D1418-E350-4CB5-BCF7-1B98CEC10BE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{494D1418-E350-4CB5-BCF7-1B98CEC10BE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
