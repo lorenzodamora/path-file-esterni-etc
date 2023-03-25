@@ -12,12 +12,9 @@ namespace _5_
 		static void Main()
 		{
 			Console.WriteLine("se si stoppa a metà il programma si bugga tutto con il prossimo restart");
-			string path = Path.GetFullPath(".");
-			for (int i = 3; i > 0; i--) //il 3 dipende dalla gestione della cartella della soluzione
-			{ //in breve: torna indietro di una cartella
-				path = Path.GetDirectoryName(path);
-			}
-			path += @"\txt";
+            string path = Directory.GetCurrentDirectory();
+            path = path.Remove(path.Length - 10);
+            path += @"\txt";
 
             //Directory.CreateDirectory(path + @"\test"); //già nel codice
 

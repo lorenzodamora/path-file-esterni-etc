@@ -12,11 +12,9 @@ namespace _7_streamreader_metodi_test
     {
         static void Main()
         {
-            string path = Path.GetFullPath(".");
-            for (int i = 3; i > 0; i--) //il 3 dipende dalla gestione della cartella della soluzione
-            { //in breve: torna indietro di una cartella
-                path = Path.GetDirectoryName(path);
-            }
+            string path = Directory.GetCurrentDirectory();
+            path = path.Remove(path.Length - 10);
+            path = Path.GetDirectoryName(path);
             path += "\\txt\\Sample.txt";
 
             CreaFile(path);

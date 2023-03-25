@@ -8,9 +8,11 @@ namespace readwriteapp
         [STAThread]
         static void Main()
         {
+            string path = @"C:\visual test";
+
             try
             {
-                Directory.CreateDirectory(@"C:\visual test");
+                Directory.CreateDirectory(path);
                 //Pass the filepath and filename to the StreamWriter Constructor
                 StreamWriter sw = new StreamWriter("C:\\visual test\\Test.txt");  //da accesso negato, si risolve aprendo visual studio come admin
                 //Write a line of text
@@ -31,7 +33,7 @@ namespace readwriteapp
             Console.ReadKey();
 
 
-            String line;
+            string line;
             try
             {
                 //Pass the file path and file name to the StreamReader constructor
@@ -58,6 +60,21 @@ namespace readwriteapp
                 Console.WriteLine("Executing finally block.");
             }
             Console.ReadKey();
+
+            //elimina
+
+            if (System.IO.Directory.Exists(path))
+			{
+				try
+				{
+					System.IO.Directory.Delete(path, true);
+				}
+
+				catch (System.IO.IOException e)
+				{
+					Console.WriteLine(e.Message);
+				}
+			}
         }
     }
 }

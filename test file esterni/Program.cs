@@ -19,34 +19,40 @@ namespace test_file_esterni
 {
 	internal class Program
 	{
+		static string path;
+
 		static void Main()
 		{
-			string path = "";
-			FStreamWriter1(path);
-			FStreamWriter2(path);
-			FStreamReader1(ref path);
-
-		}
-
-		static void FStreamReader1(ref string path)
-		{
-			string line;
-			try
-			{
+            /* obsoleto
 				path = Path.GetFullPath(".");
 				for (int i = 3; i > 0; i--) //il 3 dipende dalla gestione della cartella della soluzione
 				{ //in breve: torna indietro di una cartella
 					path = Path.GetDirectoryName(path);
-				}
-				path += "\\txt\\Sample.txt"; //aggiungi il file, che ho messo nella cartella
-				Console.WriteLine(path);
+				} */
+            path = Directory.GetCurrentDirectory();
+            path = path.Remove(path.Length - 10); //altrimenti mettere il path è  ...\bin\debug
+            path += "\\txt"; //aggiungi il folder
+			Directory.CreateDirectory(path);//crea il folder se non esiste
+            Console.WriteLine(path);
 
+            FStreamWriter1();
+			FStreamWriter2();
+			FStreamReader1(@"\Test.txt");
+
+		}
+
+		static void FStreamReader1(string filename)
+		{
+			string line;
+			try
+			{
+				path += filename;
 				//Pass the file path and file name to the StreamReader constructor
-				StreamReader sr = new StreamReader(path); //altrimenti mettere il file in  ...\bin\debug\  file
+				StreamReader sr = new StreamReader(path); 
 				//Read the first line of text
 				line = sr.ReadLine();
 				//Continue to read until you reach end of file
-				while (line != null) //prende solo la fine del file, segna anche righe saltate
+				while (line != null) //null prende solo la fine del file, segna anche righe saltate
 				{
 					//write the line to console window
 					Console.WriteLine(line);
@@ -55,7 +61,7 @@ namespace test_file_esterni
 				}
 				//close the file
 				sr.Close();
-				Console.ReadLine();
+				Console.ReadKey();
 			}
 			catch (Exception e)
 			{
@@ -66,15 +72,15 @@ namespace test_file_esterni
 				Console.WriteLine("Executing finally block.");
 			}
 
-			path = Path.GetDirectoryName(path); //togli "\sample.txt"
+			path = Path.GetDirectoryName(path); //togli "\Test.txt"
 
 		}
-		static void FStreamWriter1(string path)
+		static void FStreamWriter1()
 		{
 			try
 			{
 				//Pass the filepath and filename to the StreamWriter Constructor
-				StreamWriter sw = new StreamWriter(path + "\\Test.txt", false); //di base è false
+				StreamWriter sw = new StreamWriter(path + "\\Test.txt", false); //append è di base false
 				//Write a line of text
 				sw.WriteLine("Hello World!!"); //se sw è false sovrascrive la prima riga, altrimenti aggiunge alla fine del file
 				//Write a second line of text
@@ -92,7 +98,7 @@ namespace test_file_esterni
 			}
 		}
 
-		static void FStreamWriter2(string path)
+		static void FStreamWriter2()
 		{
 			Int64 x;
 			try
