@@ -15,7 +15,7 @@ using System.Reflection;//lo ha aggiunto il codice??
 
 //
 
-namespace test_file_esterni
+namespace _1_test_file_esterni
 {
 	internal class Program
 	{
