@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6 contare file in una carte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7 streamreader metodi test", "7 streamreader metodi test\7 streamreader metodi test.csproj", "{C2C822D2-1282-49D4-803F-CEB5C4D1DA61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8 file accesso diretto", "8 file accesso diretto\8 file accesso diretto.csproj", "{DDA556E6-602F-4ABC-B451-CCDD9F2C6662}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C2C822D2-1282-49D4-803F-CEB5C4D1DA61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2C822D2-1282-49D4-803F-CEB5C4D1DA61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2C822D2-1282-49D4-803F-CEB5C4D1DA61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDA556E6-602F-4ABC-B451-CCDD9F2C6662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDA556E6-602F-4ABC-B451-CCDD9F2C6662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDA556E6-602F-4ABC-B451-CCDD9F2C6662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDA556E6-602F-4ABC-B451-CCDD9F2C6662}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
