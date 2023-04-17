@@ -39,17 +39,14 @@ namespace file_accesso_diretto
 			path += @"\vari test\testo";
 			// Delete a directory and all subdirectories with Directory static method...
 			if (System.IO.Directory.Exists(path))
-			{
 				try
 				{
 					System.IO.Directory.Delete(path, true); //di base è false
 				}
-
 				catch (System.IO.IOException e)
 				{
 					Console.WriteLine(e.Message);
 				}
-			}
 			Directory.CreateDirectory(path);
 			return path;
 		}
