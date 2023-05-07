@@ -21,6 +21,18 @@ namespace file_accesso_diretto
 				case "3":
 					F3();
 					break;
+				case "4":
+					F4ContaLeLineeNelFile();
+					break;
+				case "5":
+					F5FileReadAllLines();
+					break;
+				case "6":
+					F6Test();
+					break;
+				case "7":
+					
+					break;
 				default:
 				case "0":
 					F1();
@@ -28,6 +40,14 @@ namespace file_accesso_diretto
 					F2();
 					Console.WriteLine("\n\n\n ######### \n\n\n");
 					F3();
+					Console.WriteLine("\n\n\n ######### \n\n\n");
+					F4ContaLeLineeNelFile();
+					Console.WriteLine("\n\n\n ######### \n\n\n");
+					F5FileReadAllLines();
+					Console.WriteLine("\n\n\n ######### \n\n\n");
+					F6Test();
+					Console.WriteLine("\n\n\n ######### \n\n\n");
+					
 					break;
 			}
 		}
@@ -50,12 +70,16 @@ namespace file_accesso_diretto
 			Directory.CreateDirectory(path);
 			return path;
 		}
-
-		static void F1()
+		static string InitPath()
 		{
 			string pat = Path.GetTempFileName();
 			string path = GetPath() + "\\" + Path.GetFileName(pat);
 			File.Move(pat, path);
+			return path;
+		}
+		static void F1()
+		{
+			string path = InitPath();
 			Console.WriteLine(path);
 			using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
 			{
@@ -75,14 +99,11 @@ namespace file_accesso_diretto
 
 				while (fs.Read(b, 0, b.Length)>0)
 					Console.WriteLine(temp.GetString(b).Remove(20));
-
 			}
 		}
 		static void F2()
 		{
-			string pat2 = Path.GetTempFileName();
-			string path2 = GetPath() + "\\" + Path.GetFileName(pat2);
-			File.Move(pat2, path2);
+			string path2 = InitPath();
 			Console.WriteLine(path2);
 			using (FileStream fs2 = new FileStream(path2, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
 			{
@@ -117,14 +138,12 @@ namespace file_accesso_diretto
 		}
 		static void F3()
 		{
-			string pat3 = Path.GetTempFileName();
-			string path3 = GetPath() + "\\" + Path.GetFileName(pat3);
-			File.Move(pat3, path3);
+			string path3 = InitPath();
 			Console.WriteLine(path3);
 			FileStream fs3 = new FileStream(path3, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
 
 			//se il file è vuoto scrivere semplicemente la stringa e convertirla in byte
-			string str = "test\nacaso\n0123456789\n\nciaogente";
+			string str = "test\nacaso\n0123456789\n\nciaogente1";
 			Byte[] info = new UTF8Encoding(true).GetBytes(str);
 			fs3.Write(info, 0, info.Length);
 
@@ -171,8 +190,109 @@ namespace file_accesso_diretto
 			//oppure porto tutta la riga a stringa e leggo la parte che voglio (utile per lavorarci)
 			Console.WriteLine();
 
+
+			//fs3.Read(b, 10, b.Length); //sembra legga tutto in un iterazione
+			//triggero un'errore per vedere se cancella tutto senza il fs.close =>
+			//il contenuto del file è intatto
+
 			//importante
 			fs3.Close();
+		}
+		static void F4ContaLeLineeNelFile()
+		{
+			string path4 = InitPath();
+			Console.WriteLine(path4);
+			//scrive nel file
+			string str = "a\nb\n\n\nend\n\n\n"; //ci sono 7 '\n'; il count li segna tutti
+			Byte[] info = new UTF8Encoding(true).GetBytes(str);
+			FileStream fsw = new FileStream(path4, FileMode.Open, FileAccess.Write, FileShare.None);
+			fsw.Write(info, 0, info.Length);
+			fsw.Close();
+
+			//inizia la lettura
+			int count = 0;
+			FileStream fsr = new FileStream(path4, FileMode.Open, FileAccess.Read, FileShare.None);
+			for (int ch = fsr.ReadByte(); ch!=-1; ch = fsr.ReadByte())
+				if ((char)ch == '\n') count++;
+			fsr.Close();
+			Console.WriteLine(count);
+		}
+		static void F5FileReadAllLines()
+		{
+			string path = InitPath();
+			Console.WriteLine(path);
+			//scrive nel file
+			string str = "a\nb\nc\nd\nend\n";
+			Byte[] info = new UTF8Encoding(true).GetBytes(str);
+			FileStream fsw = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.None);
+			fsw.Write(info, 0, info.Length);
+			fsw.Close();
+
+
+			//inizia la lettura
+
+			byte[] b = new byte[1024];
+			UTF8Encoding temp = new UTF8Encoding(true);
+			string line = "";
+			FileStream fsr = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			while (fsr.Read(b, 0, b.Length)>0)
+				line += temp.GetString(b);
+			fsr.Close();
+
+			string[] lines = line.TrimEnd('\0').Split('\n');
+			Console.WriteLine(string.Join(" | ", lines));
+		}
+		static void F6Test()
+		{//filestream apre in sovrascrittura, ma ciò che non sovrascrive rimane
+			string path = InitPath();
+			Console.WriteLine(path);
+
+			//scrive nel file
+			string str = "a\nb\nc\nd\nend\n";
+			Byte[] info = new UTF8Encoding(true).GetBytes(str);
+			FileStream fsw = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.None);
+			fsw.Write(info, 0, info.Length);
+			fsw.Close();
+
+			//di nuovo
+			str = "start\n";
+			info = new UTF8Encoding(true).GetBytes(str);
+			fsw = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.None);
+			fsw.Write(info, 0, info.Length);
+			fsw.Close();
+
+			//inizia la lettura
+
+			byte[] b = new byte[1024];
+			UTF8Encoding temp = new UTF8Encoding(true);
+			string line = "";
+			FileStream fsr = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			while (fsr.Read(b, 0, b.Length)>0)
+				line += temp.GetString(b);
+			fsr.Close();
+
+			Console.WriteLine(line.TrimEnd('\0'));
+
+			//per evitare ciò che si fa?
+
+			str = "a\n";
+			info = new UTF8Encoding(true).GetBytes(str);
+			fsw = new FileStream(path, FileMode.Truncate, FileAccess.Write, FileShare.None); //file mode truncate azzera il file
+			fsw.Write(info, 0, info.Length);
+			fsw.Close();
+
+
+			b = new byte[1024];
+			temp = new UTF8Encoding(true);
+			line = "";
+			fsr = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			while (fsr.Read(b, 0, b.Length)>0)
+				line += temp.GetString(b);
+			fsr.Close();
+			line = line.TrimEnd('\0');
+
+			Console.WriteLine("\n++++++++++\n");
+			Console.WriteLine(line);
 		}
 	}
 }
