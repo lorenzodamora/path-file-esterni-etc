@@ -31,7 +31,7 @@ namespace file_accesso_diretto
 					F6Test();
 					break;
 				case "7":
-					
+
 					break;
 				default:
 				case "0":
@@ -47,7 +47,7 @@ namespace file_accesso_diretto
 					Console.WriteLine("\n\n\n ######### \n\n\n");
 					F6Test();
 					Console.WriteLine("\n\n\n ######### \n\n\n");
-					
+
 					break;
 			}
 		}
@@ -234,12 +234,21 @@ namespace file_accesso_diretto
 			byte[] b = new byte[1024];
 			UTF8Encoding temp = new UTF8Encoding(true);
 			string line = "";
-			FileStream fsr = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
-			while (fsr.Read(b, 0, b.Length)>0)
-				line += temp.GetString(b);
-			fsr.Close();
+			FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			//while (fs.Read(b, 0, b.Length)>0)
+			//	line += temp.GetString(b);
+			for (int l; (l = fs.Read(b, 0, b.Length)) > 0;)
+				line += temp.GetString(b, 0, l);
+			fs.Close();
 
-			string[] lines = line.TrimEnd('\0').Split('\n');
+			//if (line == "") return new string[0];
+
+			// .SubString() perché altrimenti per ultimo rimarrebbe una stringa vuota
+			string[] lines = line.Substring(0, line.Length-1).Split('\n');
+			for (int i = 0; i < lines.Length; i++)
+				lines[i] = lines[i].TrimEnd('\r');
+
+			//return lines
 			Console.WriteLine(string.Join(" | ", lines));
 		}
 		static void F6Test()
@@ -266,12 +275,17 @@ namespace file_accesso_diretto
 			byte[] b = new byte[1024];
 			UTF8Encoding temp = new UTF8Encoding(true);
 			string line = "";
-			FileStream fsr = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
-			while (fsr.Read(b, 0, b.Length)>0)
-				line += temp.GetString(b);
-			fsr.Close();
+			FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			for (int l; (l = fs.Read(b, 0, b.Length)) > 0;)
+				line += temp.GetString(b, 0, l);
+			fs.Close();
 
-			Console.WriteLine(line.TrimEnd('\0'));
+			string[] lines = line.Substring(0, line.Length-1).Split('\n');
+			for (int i = 0; i < lines.Length; i++)
+				lines[i] = lines[i].TrimEnd('\r');
+
+			//return lines
+			Console.WriteLine(string.Join("\n", lines));
 
 			//per evitare ciò che si fa?
 
@@ -282,14 +296,15 @@ namespace file_accesso_diretto
 			fsw.Close();
 
 
+			//inizia la lettura
+
 			b = new byte[1024];
 			temp = new UTF8Encoding(true);
 			line = "";
-			fsr = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
-			while (fsr.Read(b, 0, b.Length)>0)
-				line += temp.GetString(b);
-			fsr.Close();
-			line = line.TrimEnd('\0');
+			fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			for (int l; (l = fs.Read(b, 0, b.Length)) > 0;)
+				line += temp.GetString(b, 0, l);
+			fs.Close();
 
 			Console.WriteLine("\n++++++++++\n");
 			Console.WriteLine(line);
